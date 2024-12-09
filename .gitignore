@@ -1,0 +1,11 @@
+.vs
+.DS_Store
+/.vscode/*.peripherals.state.json
+/.vscode/*.registers.state.json
+__pycache__
+.venv
+*.egg-info/
+*.egg
+*.tif
+*.asv
+*.mp4
