@@ -1,6 +1,6 @@
 %% FILE INFORMATION:
 
-% FILENAME:    Stepp_SETIP_Main.m
+% FILENAME:    Stepp_SPHERE_Main.m
 % PROJECT:     2024 Total Solar Eclipse Photography
 % COMPONENT:   Image Processing Wrapper Script
 % CREATED BY:  Nathaniel A. Stepp
@@ -28,8 +28,19 @@
 
 % Adding tools (e.g, custom functions, classes, tools, & MLFE content)
 % directory (& all nested sub-directories) to path:
-    toolsPath = '\TOOLS';
-    addpath(genpath(fullfile(CONFIG.PATH.MAIN_DIR, toolsPath)));
+    TEMP_PATHS = { ...
+        '\TOOLS', ...
+    };
+    for i = 1:numel(TEMP_PATHS)
+        addpath( ...
+            genpath( ...
+                fullfile( ...
+                    CONFIG.PATH.MAIN_DIR, ...
+                    TEMP_PATHS{i} ...
+                ) ...
+            ) ...
+        );
+    end
 
 % Adding tools (e.g, custom functions, classes, tools, & MLFE content)
 % directory (& all nested sub-directories) to path:
@@ -38,7 +49,7 @@
 %% USER INPUT:
 
 % Definition of filepath to original image raw data:
-    CONFIG.PATH.INPUT_PATH = 'C:\Users\Nathaniel Stepp\Desktop\ONGOING\20240918_Partial-Lunar-Eclipse\DEV\MATLAB\DATA\SEQ-01';
+    CONFIG.PATH.INPUT_PATH = 'D:\Git\nstepp\SPHERE\MATLAB\DATA\SEQ-01';
 % Definition of original image raw data filetype:
     CONFIG.PATH.INPUT_EXT = '*.TIF';
 
@@ -50,32 +61,41 @@
 % Definition of base output folder name:
     CONFIG.PATH.OUTPUT_FOLDER_NAME = 'IMG-SEQ-01_MATLAB';
 
-% TBD:
-    CONFIG.PARAM.REF_FRAME                   = 1;
+% Definition :
+    CONFIG.PARAM.REF_FRAME                   = 1; % [ND]
     CONFIG.PARAM.REG.PREP.CROP_MARGIN        = 0.25; % [%]
     CONFIG.PARAM.REG.PREP.EDED_RESIZE_FACTOR = 0.15; % [%]
     CONFIG.PARAM.REG.PREP.EDED_DIAM_GUESS    = 4000; % [px]
     CONFIG.PARAM.REG.PREP.SPIN_BLUR_ANG      = 0; % [deg]
-    CONFIG.PARAM.REG.TYPE                   = 'PhaseCorr';
-    CONFIG.PARAM.REG.TRANSFORM_TYPE         = 'Similarity';
-    CONFIG.PARAM.REG.DEBUG                  = false;
-    CONFIG.FLAG.VERIFY_REG                  = false;
+    CONFIG.PARAM.REG.TYPE                   = 'PhaseCorr'; % [ND]
+    CONFIG.PARAM.REG.TRANSFORM_TYPE         = 'Similarity'; % [ND]
+    CONFIG.PARAM.REG.DEBUG                  = false; % [ND]
+    CONFIG.FLAG.VERIFY_REG                  = false; % [ND]
 
-% TBD:
+% Definition of logical flag for selection of image sequence stacking
+% generation:
     CONFIG.FLAG.GENERATE_STACK = true;
+% Definition of logical flag for selection of image sequence stack
+% verification (e.g., display to user finished product):
     CONFIG.FLAG.VERIFY_STACK = false;
-
-% TBD:
+% Definition of logical flag for selection of export of individual frames
+% used for generated image sequence stack result:
     CONFIG.FLAG.EXPORT_STACK_FRAMES = true;
+% Definition of logical flag for selection of export of generated image
+% sequence stack result:
     CONFIG.FLAG.EXPORT_STACK_RESULT = true;
 
-% TBD:
+% Definition of logical flag for selection of export of generated image
+% sequence frames as video:
     CONFIG.GEN_SEQ_VID = true;
+% Definition of logical flag for selection of verification (e.g., display
+% to user each individal frame before saving) of generated image sequence
+% frames before writing to video file:
     CONFIG.VERIFY_SEQ_VID_FRAME = false;
 
 %% IMAGE DATA IMPORT:
 
-[IMG_DATA, CONFIG] = SETIP_IMPORT(IMG_DATA, CONFIG);
+[IMG_DATA, CONFIG] = SPHERE_IMPORT(IMG_DATA, CONFIG);
 
 % TBD:
     CONFIG.DATE_TIME.STR = ...
@@ -95,15 +115,15 @@
 
 %% IMAGE PRE-PROCESSING / REGISTRATION / POST-PROCESSING:
 
-[IMG_DATA, CONFIG] = SETIP_REG_PRE(IMG_DATA, CONFIG);
+[IMG_DATA, CONFIG] = SPHERE_REG_PRE(IMG_DATA, CONFIG);
 
-[IMG_DATA, CONFIG] = SETIP_REG_EXE(IMG_DATA, CONFIG);
+[IMG_DATA, CONFIG] = SPHERE_REG_EXE(IMG_DATA, CONFIG);
 
-[IMG_DATA, CONFIG] = SETIP_REG_PST(IMG_DATA, CONFIG);
+[IMG_DATA, CONFIG] = SPHERE_REG_PST(IMG_DATA, CONFIG);
 
 %% IMAGE STACKING:
 
-[IMG_DATA, CONFIG] = SETIP_STACK(IMG_DATA, CONFIG);
+[IMG_DATA, CONFIG] = SPHERE_STACK(IMG_DATA, CONFIG);
 
 %% IMAGE STACK VIDEO GENERATION & EXPORT
 
@@ -124,8 +144,10 @@ if CONFIG.GEN_SEQ_VID == true
     frameCropHeight = frameCropWidth / frameAspectRatio;
 
 % TBD:
-    imgSeqVidOutput = VideoWriter(horzcat(CONFIG.PATH.OUTPUT_FOLDER_NAME, ...
-        '_SEQ-VID.mp4'), 'MPEG-4');
+    imgSeqVidOutput = VideoWriter( ...
+        horzcat(CONFIG.PATH.OUTPUT_FOLDER_NAME, '_SEQ-VID.mp4'), ...
+        'MPEG-4' ...
+    );
 
 % TBD:
     imgSeqVidOutput.FrameRate = frameRate;
@@ -134,8 +156,8 @@ if CONFIG.GEN_SEQ_VID == true
     open(imgSeqVidOutput);
 
 % TBD:
-    framesPerImg = round(frameRate * dwellTimePerImg);
-    totVidFrames = IMG_DATA.IMG_CNT*framesPerImg;
+    framesPerImg = round( frameRate * dwellTimePerImg );
+    totVidFrames = IMG_DATA.IMG_CNT * framesPerImg;
 
 % TBD:
 for i = 1:1:IMG_DATA.IMG_CNT

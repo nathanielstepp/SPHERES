@@ -1,11 +1,22 @@
-.vs
-.DS_Store
-/.vscode/*.peripherals.state.json
-/.vscode/*.registers.state.json
-__pycache__
+# Environments
 .venv
+
+# macOS
+.DS_Store
+
+# MATLAB
+*.asv
+
+# Media
+*.tif
+*.mp4
+
+# Python
+__pycache__
 *.egg-info/
 *.egg
-*.tif
-*.asv
-*.mp4
+
+# VS Code
+.vs
+/.vscode/*.peripherals.state.json
+/.vscode/*.registers.state.json

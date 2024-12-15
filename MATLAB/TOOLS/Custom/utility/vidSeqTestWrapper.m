@@ -23,17 +23,17 @@
     format short;
 
 % Configuration Parameters:
-    config.imgDir           = 'H:\20240408_TSE24-Vacay_Day-6\PHOTO\DEV\IMG-SEQ\MATLAB\RESULTS\20240419_082428_IMG-SEQ-03_C2-C3-DR_MATLAB\Frames\';
-    config.imgType          = '*.tif';
-    config.vidName          = 'test';
-    config.vidEncoding      = 'MPEG-4';
-    config.frameRate        = 60;   % [frames/sec]
-    config.dwellTime        = 0.1;  % [sec] 
+    config.imgDir           = 'H:\20240408_TSE24-Vacay_Day-6\PHOTO\DEV\IMG-SEQ\MATLAB\RESULTS\20240419_082428_IMG-SEQ-03_C2-C3-DR_MATLAB\Frames\'; % [ND]
+    config.imgType          = '*.tif'; % [ND]
+    config.vidName          = 'test'; % [ND]
+    config.vidEncoding      = 'MPEG-4'; % [ND]
+    config.frameRate        = 60; % [frames/sec]
+    config.dwellTime        = 0.1; % [sec] 
     config.crop.width       = 4000; % [px]
     config.crop.aspectRatio = 16/9; % [ND; width/height]
     config.crop.offsetX     = -200; % [px]
-    config.crop.offsetY     =  700; % [px]
-    config.debugFlag        = true;
+    config.crop.offsetY     = 700; % [px]
+    config.debugFlag        = true; % [bool]
 
 % "imgSeq2Vid" function call for function test:
     imgSeq2Vid(config);
