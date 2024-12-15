@@ -1,3 +1,3 @@
-# Solar & Planetary Holistic Ellipse-based Registration & Enhancement (SPHERE)
+# Solar & Planetary Holistic Ellipse-based Registration, Enhancement, & Stacking (SPHERES)
 
-A standalone application developed in MathWork's MATLAB App Designer solely dedicated to the robust processing (e.g., registration, development, stacking, post-processing, etc.) of photos capturing the totality phase of a total solar eclipse.
+A standalone tool, originally developed in MathWork's MATLAB software, solely dedicated to the robust processing (e.g., registration, development, stacking, post-processing, etc.) of photos capturing the totality phase of a solar and planetary (lunar) eclipses.
