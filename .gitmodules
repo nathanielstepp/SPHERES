@@ -1,0 +1,3 @@
+[submodule "PYTHON/tools/imported/ml2py-conv/smop"]
+	path = PYTHON/tools/imported/ml2py-conv/smop
+	url = https://github.com/victorlei/smop.git
